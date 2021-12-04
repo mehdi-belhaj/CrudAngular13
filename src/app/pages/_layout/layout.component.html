@@ -101,10 +101,10 @@
           />
         </div>
         <div class="info">
-          <a class="d-block">Alexander Pierce</a>
+          <a class="d-block">{{user.firstname+' '+user.lastname}}</a>
         </div>
       </div>
-      <nav class="mt-2" *ngIf="role === 'ROLE_ADMIN'">
+      <nav class="mt-2" *ngIf="user.role === 'ROLE_ADMIN'">
         <ul
           class="nav nav-pills nav-sidebar flex-column"
           data-widget="treeview"

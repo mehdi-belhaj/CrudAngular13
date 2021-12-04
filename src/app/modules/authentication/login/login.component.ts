@@ -79,6 +79,8 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveUser({
             id: jwt.data.id,
             username: jwt.data.username,
+            firstname:jwt.data.firstname,
+            lastname:jwt.data.lastname,
             email: jwt.data.email,
             role: jwt.data.role,
           });

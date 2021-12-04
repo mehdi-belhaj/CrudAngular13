@@ -10,7 +10,7 @@ import { TokenStorageService } from '../../modules/authentication/services/token
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  public role;
+  public user;
   constructor(
     private tokenService: TokenStorageService,
     private httpservice: AuthHttpService,
@@ -18,7 +18,7 @@ export class LayoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.role = this.tokenService.getUser().role;
+    this.user = this.tokenService.getUser();
   }
   logout() {
     this.tokenService.signOut();
