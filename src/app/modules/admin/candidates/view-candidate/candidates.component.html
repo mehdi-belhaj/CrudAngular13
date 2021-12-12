@@ -1,0 +1,120 @@
+<div class="card card-custom gutter-b">
+  <div class="card-body">
+    <div class="form form-label-right">
+      <div class="form-group row">
+        <div class="col-lg-4">
+          <div class="row">
+            <div class="col-lg-6">
+              <select
+                class="form-control"
+                placeholder="Filter by Activity Area"
+                name="Sector"
+                [(ngModel)]="activityArea"
+                (change)="filterbyActivityArea()"
+              >
+                <option value="">All</option>
+                <option value="FINANCIALSERVICES">FINANCIAL SERVICES</option>
+                <option value="ENERGY">ENERGY</option>
+                <option value="CONSUMERPRODUCT">CONSUMER PRODUCT</option>
+                <option value="REATAILDISTRIBUTION">
+                  REATAIL DISTRIBUTION
+                </option>
+                <option value="TELECOMMUNICATION">TELECOMMUNICATION</option>
+                <option value="AUTOMOTIVE">AUTOMOTIVE</option>
+                <option value="PUBLICSECTOR">PUBLIC SECTOR</option>
+                <option value="LIFESCIENCE">LIFESCIENCE</option></select
+              ><small class="form-text text-muted"
+                ><b>Filter</b> by Activity Area</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <input
+            (keyup)="applyFilter($event)"
+            type="text"
+            class="form-control"
+            name="searchText"
+            placeholder="Search"
+            value=""
+          /><small class="form-text text-muted"
+            ><b>Search</b> in all fields</small
+          >
+        </div>
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="table" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="firstname">
+          <th mat-header-cell *matHeaderCellDef>FirstName</th>
+          <td mat-cell *matCellDef="let element">{{ element.firstname }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastname">
+          <th mat-header-cell *matHeaderCellDef>LastName</th>
+          <td mat-cell *matCellDef="let element">{{ element.lastname }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef>Username</th>
+          <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="poste">
+          <th mat-header-cell *matHeaderCellDef>Post</th>
+          <td mat-cell *matCellDef="let element">{{ element.poste }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="activityArea">
+          <th mat-header-cell *matHeaderCellDef>Activity Area</th>
+          <td mat-cell *matCellDef="let element">{{ element.activityArea }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <a
+              title="Edit candidate"
+              class="btn btn-icon btn-light btn-hover-primary btn-sm"
+              routerLink="/admin/updateCandidate"
+            >
+              <span
+                [inlineSVG]="'./assets/svg/Write.svg'"
+                [cacheSVG]="true"
+                class="svg-icon svg-icon-md svg-icon-primary"
+              >
+              </span>
+            </a>
+
+            <a
+              title="Delete candidate"
+              class="btn btn-icon btn-light btn-hover-danger btn-sm"
+            >
+              <span
+                [inlineSVG]="'./assets/svg/Trash.svg'"
+                [cacheSVG]="true"
+                class="svg-icon svg-icon-md svg-icon-danger"
+              >
+              </span>
+            </a>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <!-- Pagination -->
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 15]"
+      [pageSize]="15"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>
