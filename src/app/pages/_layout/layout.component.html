@@ -101,7 +101,7 @@
           />
         </div>
         <div class="info">
-          <a class="d-block">{{user.firstname+' '+user.lastname}}</a>
+          <a class="d-block">{{ user.firstname + " " + user.lastname }}</a>
         </div>
       </div>
       <nav class="mt-2" *ngIf="user.role === 'ROLE_ADMIN'">
@@ -124,12 +124,12 @@
               <p>All Candidates</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a routerLink="/admin/updateCandidate" class="nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p>Find Candidate</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a routerLink="/admin/importCandidate" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
@@ -145,14 +145,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">{{ title }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">
                 <a routerLink="/dashboard">Home</a>
               </li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item active">{{ title }}</li>
             </ol>
           </div>
         </div>
