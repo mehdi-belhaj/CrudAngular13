@@ -1,5 +1,8 @@
 <div class="card card-custom gutter-b">
-  <div class="card-body">
+<div *ngIf="candidates?.length==0 ">
+<img style="display: block; margin: auto;" src="../../../../../assets/img/empty.png">
+  </div> 
+  <div class="card-body" *ngIf="candidates?.length>0 ">
     <div class="form form-label-right">
       <div class="form-group row">
         <div class="col-lg-4">
@@ -46,38 +49,38 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="table" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <th mat-header-cell *matHeaderCellDef class="tableheader">Id</th>
           <td mat-cell *matCellDef="let element">{{ element.id }}</td>
         </ng-container>
         <ng-container matColumnDef="firstname">
-          <th mat-header-cell *matHeaderCellDef>FirstName</th>
+          <th mat-header-cell *matHeaderCellDef class="tableheader">FirstName</th>
           <td mat-cell *matCellDef="let element">{{ element.firstname }}</td>
         </ng-container>
 
         <ng-container matColumnDef="lastname">
-          <th mat-header-cell *matHeaderCellDef>LastName</th>
+          <th mat-header-cell *matHeaderCellDef class="tableheader">LastName</th>
           <td mat-cell *matCellDef="let element">{{ element.lastname }}</td>
         </ng-container>
 
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef>Username</th>
+          <th mat-header-cell *matHeaderCellDef class="tableheader">Username</th>
           <td mat-cell *matCellDef="let element">{{ element.username }}</td>
         </ng-container>
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <th mat-header-cell *matHeaderCellDef class="tableheader">Email</th>
           <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
         <ng-container matColumnDef="poste">
-          <th mat-header-cell *matHeaderCellDef>Post</th>
+          <th mat-header-cell *matHeaderCellDef class="tableheader">Post</th>
           <td mat-cell *matCellDef="let element">{{ element.poste }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="activityArea">
-          <th mat-header-cell *matHeaderCellDef>Activity Area</th>
+        <ng-container matColumnDef="activityArea" >
+          <th mat-header-cell *matHeaderCellDef class="tableheader">Activity Area</th>
           <td mat-cell *matCellDef="let element">{{ element.activityArea }}</td>
         </ng-container>
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <th mat-header-cell *matHeaderCellDef class="tableheader">Actions</th>
           <td mat-cell *matCellDef="let element">
             <a
               title="Edit candidate"
