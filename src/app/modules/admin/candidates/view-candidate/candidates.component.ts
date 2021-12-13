@@ -25,14 +25,12 @@ export class CandidatesComponent implements OnInit, AfterViewInit {
   public candidates;
   activityArea: string = '';
   listCandidates;
-  filtredData;
   constructor(private adminService: AdminService) {}
   ngOnInit(): void {
     this.adminService.getCandidates().subscribe((data) => {
       this.candidates = data.data;
       this.setTableDataSource(data.data);
       this.listCandidates = this.table.data;
-      this.filtredData = this.table.data;
     });
   }
   ngAfterViewInit(): void {

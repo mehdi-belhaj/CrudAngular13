@@ -22,7 +22,20 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     this.subscribeRouterEvents();
     this.title = this.router.url.split('/').pop();
-
+    switch (this.title) {
+      case 'newCandidate':
+        this.title = 'Add New Candidate';
+        break;
+      case 'candidates':
+        this.title = 'View All Candidates';
+        break;
+      case 'importCandidate':
+        this.title = 'Import New Candidates';
+        break;
+      case 'dashboard':
+        this.title = 'Dashboard';
+        break;
+    }
     this.user = this.tokenService.getUser();
   }
   logout() {
@@ -48,9 +61,6 @@ export class LayoutComponent implements OnInit {
             this.title = 'Dashboard';
             break;
         }
-        //  this.title = this.route.snapshot.data['title'];
-        // Assuming your route is like:
-        // {path: 'path', component: MyComponent, data: { title: 'Page Title'}}
       });
   };
 }
