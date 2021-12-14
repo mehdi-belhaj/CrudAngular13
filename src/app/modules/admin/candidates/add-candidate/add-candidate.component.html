@@ -1,1 +1,145 @@
-<p>add-candidate works!</p>
+<form  (ngSubmit)="save()" [formGroup]="myform">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label >First Name</label>
+        <input type="text" class="form-control" [ngClass]="{'is-invalid': f.firstname.errors && (f.firstname.dirty || f.firstname.touched)}"
+        minlength="3" placeholder="First Name" formControlName="firstname">
+
+        <div
+        *ngIf="f.firstname.errors && (f.firstname.dirty ||f.firstname.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="f.firstname.errors.required" class="error">
+          FirstName is required
+        </div>
+        <div *ngIf="f.firstname.errors?.minlength">
+            First name must be at least 3 characters long.
+       </div> 
+      </div>
+
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Last Name</label>
+        <input type="text" class="form-control" [ngClass]="{'is-invalid': f.lastname.errors && (f.lastname.dirty ||f.lastname.touched)}"
+         placeholder="Last Name" formControlName="lastname" minlength="3">
+
+            <div
+            *ngIf="f.lastname.errors && (f.lastname.dirty ||f.lastname.touched)"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.lastname.errors.required" class="error">
+              LastName is required
+            </div>
+            <div *ngIf="f.lastname.errors?.minlength">
+                Last name must be at least 3 characters long.
+           </div> 
+          </div>
+
+      </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label >UserName</label>
+          <input type="text" class="form-control" placeholder="UserName"   formControlName="username"
+          [ngClass]="{'is-invalid': f.username.errors && (f.username.dirty ||f.username.touched)}" minlength="4" >
+
+          <div
+          *ngIf="f.username.errors && (f.username.dirty ||f.username.touched)"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.username.errors.required" class="error">
+            LastName is required
+          </div>
+          <div *ngIf="f.username.errors?.minlength">
+              Last name must be at least 4 characters long.
+         </div> 
+       
+        </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label >Email</label>
+          <input type="email" class="form-control"  placeholder="Email"  formControlName="email"
+          [ngClass]="{'is-invalid': f.email.errors && (f.email.dirty ||f.email.touched)}">
+
+
+
+          <div
+          *ngIf="f.email.errors && (f.email.dirty ||f.email.touched)"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.email.errors.required" class="error">
+            Email is required
+          </div>
+          <div *ngIf="f.email.errors?.email">
+              Last name must be email format.
+         </div> 
+        </div>
+        </div>
+      </div>
+
+    <div class="form-group">
+      <label >Password</label>
+      <input type="password" class="form-control" placeholder="Password"  formControlName="password" minlength="4"
+      [ngClass]="{'is-invalid': f.password.errors && (f.password.dirty ||f.password.touched)}">
+      <div
+          *ngIf="f.password.errors && (f.password.dirty ||f.password.touched)"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.password.errors.required" class="error">
+            Passwrod is required
+          </div>
+          <div *ngIf="f.password.errors?.minlength">
+            Password must be at least 6 characters long.
+         </div> 
+        </div>
+    </div>
+  
+    <div class="form-row">
+    
+          <div class="form-group col-md-6">
+            <label >Activity</label>
+            <select  class="form-control"  formControlName="activity" [ngClass]="{'is-invalid': f.activity.errors && f.activity.touched}">
+              <option value="FINANCIALSERVICES" selected>Financial service</option>
+              <option value="CONSUMERPRODUCT">Consumer product</option>
+              <option value="REATAILDISTRIBUTION">Reatail distribution</option>
+            </select>
+
+            <div
+            *ngIf="f.activity.errors && f.activity.touched"
+            class="invalid-feedback"
+          >
+          <div *ngIf="f.activity.errors.required" class="error">
+            Activity is required
+          </div>
+          
+          </div>
+           
+        
+          </div>
+
+          <div class="form-group col-md-6">
+            <label >Poste</label>
+            <select  class="form-control"  formControlName="poste" [ngClass]="{'is-invalid': f.poste.errors && f.poste.touched}">
+              <option value="FULLSTACKDEVELOPER">Full stack developer</option>
+              <option value="TESTINGDEVELOPER">Testing developer</option>
+              <option value="SALESFORCEDEVELOPER" selected>Salesforce developer</option>
+            </select>
+
+            <div
+            *ngIf="f.poste.errors && f.poste.touched"
+            class="invalid-feedback"
+          >
+          <div *ngIf="f.poste.errors.required" class="error">
+            Activity is required
+          </div>
+          
+          </div>
+          </div>
+      </div>
+
+  
+    <button type="submit" class="btn btn-primary" [disabled]="!myform.valid">Create</button>
+  </form>
