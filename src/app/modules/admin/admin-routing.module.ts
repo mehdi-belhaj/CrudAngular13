@@ -24,7 +24,7 @@ const routes: Routes = [
         data: { title: 'Page Title' },
       },
       {
-        path: 'updateCandidate',
+        path: 'updateCandidate/:id',
         component: EditCandidateComponent,
       },
       {
