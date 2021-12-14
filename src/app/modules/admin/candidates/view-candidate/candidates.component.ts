@@ -2,7 +2,6 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import Swal from 'sweetalert2';
-import {ActivityArea, Candidate, Poste} from '../../../../models/Candidate';
 import {AdminService} from '../../admin.service';
 
 @Component({selector: 'app-candidates', templateUrl: './candidates.component.html', styleUrls: ['./candidates.component.scss']})
@@ -25,7 +24,6 @@ AfterViewInit {
     ngOnInit(): void {
         this.adminService.getCandidates().subscribe((data) => {
             this.setTableDataSource(data.data);
-            this.listCandidates = this.table.data;
         });
     }
     ngAfterViewInit(): void {
@@ -33,6 +31,7 @@ AfterViewInit {
     }
     setTableDataSource(data : any) {
         this.table = new MatTableDataSource<any>(data);
+        this.listCandidates = this.table.data;
         this.table.paginator = this.matPaginator;
     }
     applyFilter(event : Event) {
