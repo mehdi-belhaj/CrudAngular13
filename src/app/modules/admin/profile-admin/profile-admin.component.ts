@@ -6,6 +6,7 @@ import {Admin} from "../../../models/Admin";
 import {Router} from "@angular/router";
 import {concatMap, pipe, retry, startWith, Subject, switchMap} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Gender} from "../../../models/Utilisateur";
 
 @Component({
   selector: 'app-profile-admin',
@@ -16,6 +17,8 @@ export class ProfileAdminComponent implements OnInit {
   doctorForm: FormGroup;
   doctors: any;
   public admin: any;
+  genders: string[] = ["MALE", "FEMALE"];
+  genderForm: FormGroup;
   constructor( private fb: FormBuilder,
               private tokenStorageService:TokenStorageService,
                private authService: AuthHttpService,
@@ -26,27 +29,24 @@ export class ProfileAdminComponent implements OnInit {
   register: FormGroup;
   hide = true;
   adminn: Admin;
+  adminProfile: Admin;
   updated: boolean = false;
 
   initForm() {
     this.register = this.fb.group({
       firstname: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       lastname: [""],
-      username: ["", [Validators.required]],
-      email: [
-        "",
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
       address: [""],
       mobile: ["", [Validators.required]],
       dateOfBirth: ["", [Validators.required]],
       gender: ["", [Validators.required]],
     });
+
   }
 
 
-  onRegister() {
-    console.log("Form Value", this.register.value);
+  onRegister(admin: any) {
+    this.profilUpdated(admin);
   }
 
 
@@ -59,6 +59,8 @@ export class ProfileAdminComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+
     this.initForm();
       this.tokenStorageService.getToken();
       console.log(this.tokenStorageService.getToken());
@@ -90,14 +92,21 @@ export class ProfileAdminComponent implements OnInit {
   profilUpdated(admin: any) {
      console.log("admin updated : ", admin);
      console.log("form : ", this.register.value)
+    console.log("hh",     this.tokenStorageService.getUser())
     this.authService.updateProfileAdmin(admin).subscribe(
       data => {
         this.adminn = data;
+        this.tokenStorageService.getUser().admin = data;
+        this.tokenStorageService.getUser().firstname = "Salman"
+        console.log("hh II",     this.tokenStorageService.getUser())
         this.tokenStorageService.userAdmin = data;
         console.log(this.register.value.admin)
+        this.tokenStorageService.saveUser(this.tokenStorageService.userAdmin['data'])
+        //this.tokenStorageService.userAdmin;
         this.updated = true;
         console.log("Updated",this.tokenStorageService.userAdmin)
-        /* this.admin = this.authService.UsernameExist(this.tokenStorageService.getUser().username).subscribe(
+        /*console.log("Updated II, " , this.tokenStorageService.userAdmin['data'])
+         this.admin = this.authService.UsernameExist(this.tokenStorageService.getUser().username).subscribe(
           data => this.admin = data
         );*/
         this.showNotification(
@@ -106,7 +115,7 @@ export class ProfileAdminComponent implements OnInit {
           "top",
           "right"
         );
-        this.router.navigate(['adminProfile']);
+        this.router.navigateByUrl('/adminProfile');
 
       }
     ),pipe(

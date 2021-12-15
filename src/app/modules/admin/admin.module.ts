@@ -18,6 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { FormsModule } from '@angular/forms';
 import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
+import {MatRadioModule} from "@angular/material/radio";
 @NgModule({
   declarations: [
     AdminComponent,
@@ -40,7 +41,8 @@ import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
     MatTabsModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatRadioModule
   ],
 })
 export class AdminModule {}
