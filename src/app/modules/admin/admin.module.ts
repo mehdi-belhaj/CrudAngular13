@@ -16,7 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { InlineSVGModule } from 'ng-inline-svg-2';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -38,6 +39,8 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatTabsModule,
     FormsModule,
+    ReactiveFormsModule
   ],
+  
 })
 export class AdminModule {}

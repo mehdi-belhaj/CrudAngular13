@@ -1,18 +1,35 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Candidate } from '../../models/Candidate';
 const API_AUTH_URL = `${environment.apiUrl}/admin`;
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+};
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCandidates(): Observable<any> {
     return this.http.get<any>(`${API_AUTH_URL}/candidates`);
   }
-deleteCandidate(id:number):Observable<any> {
-  return this.http.delete<any>(`${API_AUTH_URL}/candidate/${id}`);
-}
+
+
+  addCandidate(candidate: Candidate): Observable<Candidate> {
+    return this.http.post<Candidate>(
+      `${API_AUTH_URL}/candidate`,
+      candidate,
+      httpOptions
+    );
+  }
+
+  deleteCandidate(id: number): Observable<any> {
+    return this.http.delete<any>(`${API_AUTH_URL}/candidate/${id}`);
+  }
 }
