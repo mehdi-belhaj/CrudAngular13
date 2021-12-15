@@ -35,6 +35,9 @@ export class LayoutComponent implements OnInit {
       case 'dashboard':
         this.title = 'Dashboard';
         break;
+        default :
+        this.title="Update Candidate";
+        break ;
     }
     this.user = this.tokenService.getUser();
   }
@@ -60,6 +63,9 @@ export class LayoutComponent implements OnInit {
           case 'dashboard':
             this.title = 'Dashboard';
             break;
+            default :
+            this.title="Update Candidate";
+            break ;
         }
       });
   };

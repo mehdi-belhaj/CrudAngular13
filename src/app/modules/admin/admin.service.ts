@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Candidate } from '../../models/Candidate';
-import { Page } from './candidates/view-candidate/Page';
 const API_AUTH_URL = `${environment.apiUrl}/admin`;
 
 const httpOptions = {
@@ -15,12 +14,9 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AdminService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCandidates(): Observable<any> {
-    let returnedData: any;
-    let params = new HttpParams();
-
     return this.http.get<any>(`${API_AUTH_URL}/candidates`);
   }
 
@@ -33,4 +29,7 @@ export class AdminService {
     );
   }
 
+  deleteCandidate(id: number): Observable<any> {
+    return this.http.delete<any>(`${API_AUTH_URL}/candidate/${id}`);
+  }
 }
