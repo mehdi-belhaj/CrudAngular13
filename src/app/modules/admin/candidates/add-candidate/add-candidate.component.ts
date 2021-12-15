@@ -15,6 +15,7 @@ export class AddCandidateComponent implements OnInit {
   myform!: FormGroup;
   submitted = false;
   errorMessage = '';
+  
 
 
   constructor(
@@ -27,10 +28,12 @@ export class AddCandidateComponent implements OnInit {
 
     this.myform = this.formBuilder.group(
       {
-        firstname: ['', Validators.required,Validators.minLength(3)],
+        firstname: ['', Validators.required],
         poste: ['', Validators.required],
         activity: ['', Validators.required],
-        lastname: ['', Validators.required,Validators.minLength(3)],
+        gender: ['', Validators.required],
+
+        lastname: ['', Validators.required],
         username: [
           '',
           [
@@ -40,14 +43,12 @@ export class AddCandidateComponent implements OnInit {
           ],
         ],
         email: ['', [Validators.required, Validators.email]],
-        password: [
-          '',
-          [
+        password: [ '', [
             Validators.required,
             Validators.minLength(6),
             Validators.maxLength(40),
           ],
-        ],
+        ]
       
       },
      
@@ -69,6 +70,9 @@ export class AddCandidateComponent implements OnInit {
   public get Activity(): FormControl {
     return this.myform.get('activity') as FormControl;
   }
+  public get Gender(): FormControl {
+    return this.myform.get('gender') as FormControl;
+  }
   public get Firstname(): FormControl {
     return this.myform.get('firstname') as FormControl;
   }
@@ -85,6 +89,7 @@ export class AddCandidateComponent implements OnInit {
   }
 
   save(): void {
+    this.submitted = true
 
     if (this.myform.invalid) {
       return;
@@ -97,6 +102,7 @@ export class AddCandidateComponent implements OnInit {
       email: this.Email?.value.trim().toLowerCase(),
       poste: this.Poste?.value.trim(),
       activityArea: this.Activity?.value.trim(),
+      gender: this.Gender?.value.trim(),
       password: this.Password?.value,
       role: Role.ROLE_CANDIDAT,
     };
@@ -104,16 +110,33 @@ export class AddCandidateComponent implements OnInit {
     console.log(candidate)
     this.candidateService.addCandidate(candidate).subscribe(
 
-      (data) => {
-
-      
+      (data) => { 
         this.router.navigate(['/admin/candidates']);
       },
       (err) => {
         this.errorMessage = err.error.message;
+       
       }
     );
 
+
+    // this.candidateService.addCandidate(candidate).subscribe(
+
+    //   (data) => {
+
+      
+    //     this.router.navigate(['/admin/candidates']);
+    //   },
+    //   (err) => {
+    //     this.errorMessage = err.error.message;
+    //   }
+    // );
+
+
+   
+   
+    
+    
 
   }
 
