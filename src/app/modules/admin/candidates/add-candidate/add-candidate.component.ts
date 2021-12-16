@@ -48,8 +48,10 @@ export class AddCandidateComponent implements OnInit {
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(40),
-        ],
-        ]
+        ],],
+        dateOfBirth: [''],
+        address: ['']
+
 
       },
 
@@ -83,7 +85,12 @@ export class AddCandidateComponent implements OnInit {
   public get Password(): FormControl {
     return this.myform.get('password') as FormControl;
   }
-
+  public get DateOfBirth(): FormControl {
+    return this.myform.get('dateOfBirth') as FormControl;
+  }
+  public get Address(): FormControl {
+    return this.myform.get('address') as FormControl;
+  }
   get f(): { [key: string]: AbstractControl } {
     return this.myform.controls;
   }
@@ -105,6 +112,8 @@ export class AddCandidateComponent implements OnInit {
       gender: this.Gender?.value.trim(),
       password: this.Password?.value,
       role: Role.ROLE_CANDIDAT,
+      dateOfBirth: this.DateOfBirth?.value,
+      address: this.Address?.value
     };
     this.candidateService.addCandidate(candidate).subscribe(
 

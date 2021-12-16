@@ -5,10 +5,9 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminRoutingModule } from '../modules/admin/admin-routing.module';
 import { CandidateRoutingModule } from '../modules/candidate/candidate-routing.module';
-import { ErrorComponent } from './error/error.component';
 
 @NgModule({
-  declarations: [LayoutComponent, ErrorComponent],
+  declarations: [LayoutComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
@@ -16,4 +15,4 @@ import { ErrorComponent } from './error/error.component';
     CandidateRoutingModule,
   ],
 })
-export class LayoutModule {}
+export class LayoutModule { }

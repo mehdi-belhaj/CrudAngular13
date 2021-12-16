@@ -35,10 +35,12 @@ export class EditCandidateComponent implements OnInit {
         poste: ['', Validators.required],
         activity: ['', Validators.required],
         gender: ['', Validators.required],
-        address: ['']
+        address: [''],
+        phone: ['', [Validators.minLength(10)]],
+        dateOfBirth: ['']
       });
   }
-
+  // , Validators.maxLength(10)
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       this.idCandidate = parseInt(params.get('id'));
@@ -59,7 +61,9 @@ export class EditCandidateComponent implements OnInit {
             poste: this.candidate.poste,
             activity: this.candidate.activityArea,
             gender: this.candidate.gender ?? '',
-            address: this.candidate.address ?? ''
+            address: this.candidate.address ?? '',
+            dateOfBirth: this.candidate.dateOfBirth ?? '',
+            phone: this.candidate.phone ?? '',
           })
 
         },
@@ -95,6 +99,12 @@ export class EditCandidateComponent implements OnInit {
   public get Address(): FormControl {
     return this.myform.get('address') as FormControl;
   }
+  public get DateOfBirth(): FormControl {
+    return this.myform.get('dateOfBirth') as FormControl;
+  }
+  public get Phone(): FormControl {
+    return this.myform.get('phone') as FormControl;
+  }
   get f(): { [key: string]: AbstractControl } {
     return this.myform.controls;
   }
@@ -114,7 +124,9 @@ export class EditCandidateComponent implements OnInit {
       poste: this.Poste?.value.trim(),
       activityArea: this.Activity?.value.trim(),
       gender: this.Gender?.value.trim(),
-      address: this.Address?.value.trim()
+      address: this.Address?.value.trim(),
+      phone: this.Phone?.value.trim(),
+      dateOfBirth: this.DateOfBirth?.value.trim()
     };
 
     this.adminService.updateCandidate(this.idCandidate, this.candidate).subscribe(
