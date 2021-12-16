@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder, FormControl,
@@ -9,9 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthHttpService } from '../services/auth-http.service';
 import { TokenStorageService } from '../services/token-storage-service.service';
-import {MatProgressButtonOptions} from "mat-progress-buttons";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Admin} from "../../../models/Admin";
+import { MatProgressButtonOptions } from "mat-progress-buttons";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Admin } from "../../../models/Admin";
 
 @Component({
   selector: 'app-login',
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
       ],
       password: [
         '',
-        Validators.compose([Validators.required, Validators.minLength(5)]),
+        Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
     });
   }
@@ -125,12 +125,12 @@ export class LoginComponent implements OnInit {
     this.authhttp.EmailExist(this.loginForm.value.usernameOrEmail).subscribe(
       res => {
         this.loginForm.value.password = "$2a$10$QjBHbaKfLQEvyMsVQ4/TA.SZnAprAUu3CvsXwlAtFvA89BzVc3Tm2";
-        if(this.loginForm.value.password !== this.encryptPassword){
-          this.errorPasswordMessage = "Mot de passe incorrect.";
+        if (this.loginForm.value.password !== this.encryptPassword) {
+          // this.errorMessage = "Mot de passe incorrect.";
         }
-          }, (err) => {
+      }, (err) => {
         err.error.message = "Impossible de trouver votre compte | email incorrect.";
-        this.errorEmailMessage = err.error.message
+        // this.errorMessage = err.error.message
 
       }
     )

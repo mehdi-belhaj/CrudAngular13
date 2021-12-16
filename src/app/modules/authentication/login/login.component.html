@@ -10,9 +10,14 @@
       <div class="form-section">
         <div class="auth-wrapper">
           <form class="validate-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+            <div class="alert alert-danger" *ngIf="errorMessage">
+              Email Or Password Incorrect !
+            </div>
             <div class="img-circle img-size-32 card-img-overlay img-ss " style="margin-bottom: 30px">
               <img src="../../../../assets/img/cap1.png"/>
+              <h1 class="capgemini">Capgemini</h1>
             </div>
+         
             <h2 class="login-title">#Get the future you want#</h2>
             <div class="row">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
@@ -46,7 +51,7 @@
                       Password is required
                     </div>
                     <div *ngIf="loginForm.get('password').errors?.minlength">
-                       Password must be at least 5 characters long.
+                       Password must be at least 6 characters long.
                     </div>
                   </mat-error>
                 </mat-form-field>
@@ -91,9 +96,9 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div *ngIf="errorEmailMessage" class="alert alert-danger mt-3 mb-0">{{errorEmailMessage}}</div>
-            <div *ngIf="errorPasswordMessage" class="alert alert-danger mt-3 mb-0">{{errorPasswordMessage}}</div>
-
+            <!-- <div *ngIf="errorEmailMessage" class="alert alert-danger mt-3 mb-0">{{errorEmailMessage}}</div> -->
+            <!-- <div *ngIf="errorMessage!='';" class="alert alert-danger mt-3 mb-0">Email Or Password Incorrect !</div> -->
+           
           </form>
           <h6 class="social-login-title">OR</h6>
           <ul class="list-unstyled social-icon mb-0 mt-3">
