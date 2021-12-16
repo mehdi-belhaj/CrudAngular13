@@ -191,7 +191,7 @@
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <mat-form-field class="example-full-width" appearance="outline">
                           <mat-label>Date of birth</mat-label>
-                          <input matInput formControlName="dateOfBirth" required [(ngModel)]="this.admin.dateOfBirth">
+                          <input matInput type="date" formControlName="dateOfBirth" required [(ngModel)]="this.admin.dateOfBirth">
                           <mat-icon matSuffix>date</mat-icon>
                           <mat-error *ngIf="register.get('dateOfBirth').hasError('required')">
                             Date of birth is required

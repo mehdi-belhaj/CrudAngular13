@@ -156,12 +156,10 @@ export class RegistrationComponent implements OnInit {
     const name = this.form.value.username;
     if (name != null && name != '') {
       this.authhttp.UsernameExist(name).subscribe(x => {
-        console.log('name exist')
         this.messageValidate.username.matchUsername = 'Username Already Exists.';
         this.usernameExist = true;
       }, ex => {
         this.usernameExist = false;
-        console.log(ex);
       });
       return true;
     }
@@ -172,12 +170,10 @@ export class RegistrationComponent implements OnInit {
     const email = this.form.value.email;
     if (email != null && email != '') {
       this.authhttp.EmailExist(email).subscribe(x => {
-        console.log('email exist')
         this.messageValidate.email.matchEmail = 'Email Already Exists.';
         this.emailExist = true;
       }, ex => {
         this.emailExist = false;
-        console.log(ex);
       });
       return true;
     }

@@ -6,15 +6,13 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [AppAuthGuard],
-    loadChildren: () =>
-      import('./pages/layout.module').then((m) => m.LayoutModule),
-  },
-  {
+    loadChildren: () => import('./pages/layout.module').then((m) => m.LayoutModule)
+  }, {
     path: 'auth',
-    loadChildren: () =>
-      import('./modules/authentication/authentication.module').then(
-        (m) => m.AuthenticationModule
-      ),
+    loadChildren: () => import('./modules/authentication/authentication.module').then((m) => m.AuthenticationModule)
+  }, {
+    path: '**',
+    redirectTo: '/notFound'
   },
 ];
 
@@ -22,9 +20,9 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       enableTracing: false,
-      anchorScrolling: 'enabled',
+      anchorScrolling: 'enabled'
     }),
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

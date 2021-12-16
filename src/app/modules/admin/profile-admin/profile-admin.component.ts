@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {TokenStorageService} from "../../authentication/services/token-storage-service.service";
-import {AuthHttpService} from "../../authentication/services/auth-http.service";
-import {Admin} from "../../../models/Admin";
-import {Router} from "@angular/router";
-import {concatMap, pipe, retry, startWith, Subject, switchMap} from "rxjs";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Gender} from "../../../models/Utilisateur";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { TokenStorageService } from "../../authentication/services/token-storage-service.service";
+import { AuthHttpService } from "../../authentication/services/auth-http.service";
+import { Admin } from "../../../models/Admin";
+import { Router } from "@angular/router";
+import { concatMap, pipe, retry, startWith, Subject, switchMap } from "rxjs";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Gender, Role } from "../../../models/Utilisateur";
 
 @Component({
   selector: 'app-profile-admin',
@@ -19,11 +19,11 @@ export class ProfileAdminComponent implements OnInit {
   public admin: any;
   genders: string[] = ["MALE", "FEMALE"];
   genderForm: FormGroup;
-  constructor( private fb: FormBuilder,
-              private tokenStorageService:TokenStorageService,
-               private authService: AuthHttpService,
-               private router: Router,
-               private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder,
+    private tokenStorageService: TokenStorageService,
+    private authService: AuthHttpService,
+    private router: Router,
+    private snackBar: MatSnackBar) {
   }
   // Form 1
   register: FormGroup;
@@ -35,7 +35,7 @@ export class ProfileAdminComponent implements OnInit {
   initForm() {
     this.register = this.fb.group({
       firstname: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      lastname: [""],
+      lastname: ["", Validators.required],
       address: [""],
       mobile: ["", [Validators.required]],
       dateOfBirth: ["", [Validators.required]],
@@ -62,12 +62,10 @@ export class ProfileAdminComponent implements OnInit {
 
 
     this.initForm();
-      this.tokenStorageService.getToken();
-      console.log(this.tokenStorageService.getToken());
-    console.log("USER : ", this.tokenStorageService.getUser().username);
-      this.admin = this.tokenStorageService.getUser();
+    this.tokenStorageService.getToken();
+    this.admin = this.tokenStorageService.getUser();
 
-    }
+  }
 
 
 
@@ -90,35 +88,24 @@ export class ProfileAdminComponent implements OnInit {
   )
 
   profilUpdated(admin: any) {
-     console.log("admin updated : ", admin);
-     console.log("form : ", this.register.value)
-    console.log("hh",     this.tokenStorageService.getUser())
     this.authService.updateProfileAdmin(admin).subscribe(
       data => {
         this.adminn = data;
-        this.tokenStorageService.getUser().admin = data;
-        this.tokenStorageService.getUser().firstname = "Salman"
-        console.log("hh II",     this.tokenStorageService.getUser())
+        // this.tokenStorageService.getUser().admin = data;
         this.tokenStorageService.userAdmin = data;
-        console.log(this.register.value.admin)
+
         this.tokenStorageService.saveUser(this.tokenStorageService.userAdmin['data'])
-        //this.tokenStorageService.userAdmin;
         this.updated = true;
-        console.log("Updated",this.tokenStorageService.userAdmin)
-        /*console.log("Updated II, " , this.tokenStorageService.userAdmin['data'])
-         this.admin = this.authService.UsernameExist(this.tokenStorageService.getUser().username).subscribe(
-          data => this.admin = data
-        );*/
         this.showNotification(
           ['snackbar-success'],
           "Admin Profile Updated Successfully...!!!",
-          "top",
+          "bottom",
           "right"
         );
         this.router.navigateByUrl('/adminProfile');
 
       }
-    ),pipe(
+    ), pipe(
       startWith(''),
       switchMap(() => {
         return this.authService.updateProfileAdmin(this.tokenStorageService.userAdmin);

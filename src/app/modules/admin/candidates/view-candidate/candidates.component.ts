@@ -1,18 +1,14 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivityArea, Candidate, Poste } from '../../../../models/Candidate';
+import Swal from 'sweetalert2';
 import { AdminService } from '../../admin.service';
 
-@Component({
-  selector: 'app-candidates',
-  templateUrl: './candidates.component.html',
-  styleUrls: ['./candidates.component.scss'],
-})
-export class CandidatesComponent implements OnInit, AfterViewInit {
+@Component({ selector: 'app-candidates', templateUrl: './candidates.component.html', styleUrls: ['./candidates.component.scss'] })
+export class CandidatesComponent implements OnInit,
+  AfterViewInit {
   @ViewChild(MatPaginator, { static: false }) matPaginator: MatPaginator;
   displayedColumns: string[] = [
-    'id',
     'firstname',
     'lastname',
     'username',
@@ -22,17 +18,12 @@ export class CandidatesComponent implements OnInit, AfterViewInit {
     'actions',
   ];
   public table = new MatTableDataSource<any>();
-  public candidates;
   activityArea: string = '';
   listCandidates;
-  filtredData;
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService) { }
   ngOnInit(): void {
     this.adminService.getCandidates().subscribe((data) => {
-      this.candidates = data.data;
       this.setTableDataSource(data.data);
-      this.listCandidates = this.table.data;
-      this.filtredData = this.table.data;
     });
   }
   ngAfterViewInit(): void {
@@ -40,6 +31,7 @@ export class CandidatesComponent implements OnInit, AfterViewInit {
   }
   setTableDataSource(data: any) {
     this.table = new MatTableDataSource<any>(data);
+    this.listCandidates = this.table.data;
     this.table.paginator = this.matPaginator;
   }
   applyFilter(event: Event) {
@@ -52,9 +44,28 @@ export class CandidatesComponent implements OnInit, AfterViewInit {
     if (this.activityArea === '') {
       this.table.data = this.listCandidates;
     } else {
-      this.table.data = this.table.data.filter(
-        (item) => item.activityArea === this.activityArea
-      );
+      this.table.data = this.table.data.filter((item) => item.activityArea === this.activityArea);
     }
+  }
+  deleteCandidate(id: number) {
+    Swal.fire({
+      title: 'Are you sure want to remove?',
+      text: 'You will not be able to recover this candidate!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.adminService.deleteCandidate(id).subscribe(data => {
+          this.table.data = this.table.data.filter((item) => item.id !== id);
+          this.listCandidates = this.table.data;
+        })
+        Swal.fire('Deleted!', 'Your candidate has been deleted.', 'success')
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', 'Your candidate is safe :)', 'error')
+      }
+    })
+
   }
 }

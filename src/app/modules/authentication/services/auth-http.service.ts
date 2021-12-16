@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, catchError, map, Observable, retry, Subject, tap, throwError} from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, catchError, map, Observable, retry, Subject, tap, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ResponseObject } from '../../../models/helpers/ResponseObject';
 import { Utilisateur } from '../../../models/Utilisateur';
 import { Router } from '@angular/router';
 import { JwtResponse } from '../../../models/helpers/JwtResponse';
-import {Admin} from "../../../models/Admin";
-import {TokenStorageService} from "./token-storage-service.service";
+import { Admin } from "../../../models/Admin";
+import { TokenStorageService } from "./token-storage-service.service";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
@@ -54,12 +54,12 @@ export class AuthHttpService {
     );
   }
 
-  getErrorHandler(errorRes: HttpErrorResponse){
+  getErrorHandler(errorRes: HttpErrorResponse) {
     let errorMessage = 'An Error Occurred';
-    if(!errorRes.error || !errorRes.error.error){
+    if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
     }
-    switch (errorRes.error.error.message){
+    switch (errorRes.error.error.message) {
       case 'EMAIL_EXISTS':
         errorMessage = 'Email Already Exists';
         break;
@@ -81,17 +81,17 @@ export class AuthHttpService {
     return this.http.get<ResponseObject<void>>(`${API_AUTH_URL}/logout`);
   }
 
-  getAllAdmins():Observable<Admin[]>{
+  getAllAdmins(): Observable<Admin[]> {
     return this.http.get<Admin[]>(`${API_URL}/admins`);
   }
 
-  UsernameExist(username: string){
-    return this.http.get(`${API_AUTH_URL}/admins/`+username).pipe();
+  UsernameExist(username: string) {
+    return this.http.get(`${API_AUTH_URL}/admins/` + username).pipe();
   }
-  EmailExist(email: string){
-    return this.http.get(`${API_AUTH_URL}/admins/admin/`+email).pipe();
+  EmailExist(email: string) {
+    return this.http.get(`${API_AUTH_URL}/admins/admin/` + email).pipe();
   }
-  updateProfileAdmin(data):Observable<Admin>{
+  updateProfileAdmin(data): Observable<Admin> {
     return this.http.put<Admin>(`${API_URL}/personalData`, data).pipe(
       retry(1),
       catchError(this.handleError),
