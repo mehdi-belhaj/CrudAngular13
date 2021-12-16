@@ -17,11 +17,12 @@ export class LayoutComponent implements OnInit {
     private httpservice: AuthHttpService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.subscribeRouterEvents();
     this.title = this.router.url.split('/').pop();
+
     switch (this.title) {
       case 'newCandidate':
         this.title = 'Add New Candidate';
@@ -35,9 +36,12 @@ export class LayoutComponent implements OnInit {
       case 'dashboard':
         this.title = 'Dashboard';
         break;
-        default :
-        this.title="Update Candidate";
-        break ;
+      case 'adminProfile':
+        this.title = 'Admin Profile';
+        break;
+      default:
+        this.title = "Update Candidate";
+        break;
     }
     this.user = this.tokenService.getUser();
   }
@@ -63,9 +67,12 @@ export class LayoutComponent implements OnInit {
           case 'dashboard':
             this.title = 'Dashboard';
             break;
-            default :
-            this.title="Update Candidate";
-            break ;
+          case 'adminProfile':
+            this.title = 'Admin Profile';
+            break;
+          default:
+            this.title = "Update Candidate";
+            break;
         }
       });
   };

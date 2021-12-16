@@ -74,7 +74,7 @@
           aria-labelledby="navbarDropdown"
           style="float: left"
         >
-          <a class="dropdown-item" routerLink="/dashboard">Profile</a>
+          <a class="dropdown-item" *ngIf="user.role === 'ROLE_ADMIN'" routerLink="/adminProfile">Profile</a>
           <a class="dropdown-item" routerLink="/dashboard">Security</a>
           <a class="dropdown-item" routerLink="" (click)="logout()">Logout</a>
         </div>

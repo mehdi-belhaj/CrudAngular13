@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Admin } from "../../../models/Admin";
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -7,8 +8,8 @@ const USER_KEY = 'auth-user';
   providedIn: 'root',
 })
 export class TokenStorageService {
-  constructor() {}
-
+  constructor() { }
+  userAdmin;
   signOut(): void {
     if (this.getToken()) window.sessionStorage.removeItem(TOKEN_KEY);
     if (this.getUser()) window.sessionStorage.removeItem(USER_KEY);
@@ -29,12 +30,27 @@ export class TokenStorageService {
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
+  public createUser(user: any): void {
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
   public getUser(): any {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
+      this.userAdmin = JSON.parse(user);
       return JSON.parse(user);
     }
 
     return {};
   }
+  // public setUser(user2): any {
+  //   let user = window.sessionStorage.getItem(USER_KEY);
+  //   if (user) {
+  //     user=
+  //     this.userAdmin = JSON.parse(user);
+  //     return JSON.parse(user);
+  //   }
+
+  //   return {};
+  // }
 }

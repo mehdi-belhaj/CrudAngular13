@@ -5,6 +5,7 @@ import { AddCandidateComponent } from './candidates/add-candidate/add-candidate.
 import { CandidatesComponent } from './candidates/view-candidate/candidates.component';
 import { EditCandidateComponent } from './candidates/edit-candidate/edit-candidate.component';
 import { ImportCandidateComponent } from './candidates/import-candidate/import-candidate.component';
+import { ProfileAdminComponent } from "./profile-admin/profile-admin.component";
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
         data: { title: 'Page Title' },
       },
       {
+        path: "adminProfile",
+        component: ProfileAdminComponent
+      },
+      {
         path: 'updateCandidate/:id',
         component: EditCandidateComponent,
       },
@@ -39,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

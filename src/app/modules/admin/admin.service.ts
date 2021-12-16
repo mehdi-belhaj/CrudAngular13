@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Candidate } from '../../models/Candidate';
+import { Page } from './candidates/view-candidate/Page';
 const API_AUTH_URL = `${environment.apiUrl}/admin`;
 
 const httpOptions = {
@@ -17,8 +18,12 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   getCandidates(): Observable<any> {
+    let returnedData: any;
+    let params = new HttpParams();
+
     return this.http.get<any>(`${API_AUTH_URL}/candidates`);
   }
+
 
 
   addCandidate(candidate: Candidate): Observable<Candidate> {
