@@ -54,6 +54,7 @@ export class LayoutComponent implements OnInit {
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe(() => {
         this.title = this.router.url.split('/').pop();
+        this.user = this.tokenService.getUser();
         switch (this.title) {
           case 'newCandidate':
             this.title = 'Add New Candidate';

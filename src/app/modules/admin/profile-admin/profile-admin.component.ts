@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { concatMap, pipe, retry, startWith, Subject, switchMap } from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Gender, Role } from "../../../models/Utilisateur";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile-admin',
@@ -40,6 +41,7 @@ export class ProfileAdminComponent implements OnInit {
       mobile: ["", [Validators.required]],
       dateOfBirth: ["", [Validators.required]],
       gender: ["", [Validators.required]],
+      email: [""]
     });
 
   }
@@ -96,14 +98,17 @@ export class ProfileAdminComponent implements OnInit {
 
         this.tokenStorageService.saveUser(this.tokenStorageService.userAdmin['data'])
         this.updated = true;
-        this.showNotification(
-          ['snackbar-success'],
-          "Admin Profile Updated Successfully...!!!",
-          "bottom",
-          "right"
-        );
+        // this.showNotification(
+        //   ['snackbar-success'],
+        //   "Admin Profile Updated Successfully...!!!",
+        //   "bottom",
+        //   "right"
+        // );
         this.router.navigateByUrl('/adminProfile');
-
+        Swal.fire({
+          title: 'You personal information updated successfully',
+          icon: 'success'
+        })
       }
     ), pipe(
       startWith(''),
