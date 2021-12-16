@@ -37,4 +37,12 @@ export class AdminService {
   deleteCandidate(id: number): Observable<any> {
     return this.http.delete<any>(`${API_AUTH_URL}/candidate/${id}`);
   }
+
+  getCandidate(id: number): Observable<any> {
+    return this.http.get<any>(`${API_AUTH_URL}/candidate/${id}`);
+  }
+
+  updateCandidate(id: number, candidate) {
+    return this.http.put<any>(`${API_AUTH_URL}/candidate/${id}`, candidate);
+  }
 }
