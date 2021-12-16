@@ -103,8 +103,8 @@ export class AddCandidateComponent implements OnInit {
     }
 
     let candidate: Candidate = {
-      firstname: this.Firstname?.value.trim().toLowerCase(),
-      lastname: this.Lastname?.value.trim().toLowerCase(),
+      firstname: this.Firstname?.value.trim(),
+      lastname: this.Lastname?.value.trim(),
       username: this.Username?.value.trim().toLowerCase(),
       email: this.Email?.value.trim().toLowerCase(),
       poste: this.Poste?.value.trim(),

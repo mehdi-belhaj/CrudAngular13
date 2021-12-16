@@ -20,6 +20,8 @@ export class CandidatesComponent implements OnInit,
   public table = new MatTableDataSource<any>();
   activityArea: string = '';
   listCandidates;
+  fileToUpload: File | null = null;
+  errors: boolean = false;
   constructor(private adminService: AdminService) { }
   ngOnInit(): void {
     this.adminService.getCandidates().subscribe((data) => {
@@ -66,6 +68,21 @@ export class CandidatesComponent implements OnInit,
         Swal.fire('Cancelled', 'Your candidate is safe :)', 'error')
       }
     })
+
+  }
+
+  handleFileInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    this.fileToUpload = files.item(0);
+    this.adminService.postFile(this.fileToUpload).subscribe(
+      data => {
+        console.log(data.message);
+      },
+      err => console.log(err.error.message)
+    );
+
+
 
   }
 }
