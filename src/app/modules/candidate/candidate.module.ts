@@ -7,5 +7,6 @@ import { CandidateComponent } from './candidate.component';
 @NgModule({
   declarations: [CandidateComponent],
   imports: [CommonModule, CandidateRoutingModule],
+  exports:[CandidateComponent]
 })
 export class CandidateModule {}
