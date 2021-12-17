@@ -5,17 +5,19 @@ import { CandidateComponent } from './candidate.component';
 const routes: Routes = [
   {
     path: '',
-    component: CandidateComponent,
-    // canActivate: [AppAuthGuard],
-    children: [{path:"", redirectTo:'/dashboard', pathMatch:'full'},
-    // {path:"profile-candidat",component:CandidateComponent,outlet:"candidat"}
-    ],
-  
-  },
+    redirectTo: '/dashboard', pathMatch: 'full'
+  }
+  // component: CandidateComponent,
+  // canActivate: [AppAuthGuard],
+  // children: [{ path: "", redirectTo: '/dashboard', pathMatch: 'full' },
+  // {path:"profile-candidat",component:CandidateComponent,outlet:"candidat"}
+  // ],
+
+  // },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CandidateRoutingModule {}
+export class CandidateRoutingModule { }

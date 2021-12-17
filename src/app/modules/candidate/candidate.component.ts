@@ -101,7 +101,7 @@ export class CandidateComponent implements OnInit {
         },
         error => {
           Swal.fire({
-            text: 'please fill in the form correctly',
+            text: 'error',
             icon: "error"
           })
         });
@@ -124,11 +124,21 @@ export class CandidateComponent implements OnInit {
 
     this.candidateService.update(this.myform.value).subscribe(res => {
       this.router.navigateByUrl('/dashboard');
+      this.candidat = res["data"];
+      //  this.candidat.lastname=res["data.lastname"];
+      //  this.candidat.firstname=res["data.first"];
+      //  this.candidat.firstname=res["data.first"];
+      //  this.candidat.firstname=res["data.first"];
       Swal.fire({
         text: 'Your personal information updated succeftully',
         icon: "success"
       })
-    })
+    },
+      err => Swal.fire({
+        text: 'Form invalid',
+        icon: "error"
+      })
+    )
   }
 
 }

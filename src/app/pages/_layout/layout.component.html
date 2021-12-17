@@ -101,7 +101,8 @@
           />
         </div>
         <div class="info">
-          <a class="d-block">{{ user.firstname + " " + user.lastname }}</a>
+          <a class="d-block" *ngIf="user.role === 'ROLE_ADMIN'">{{ user.firstname + " " + user.lastname }}</a>
+          <a class="d-block" *ngIf="user.role === 'ROLE_CANDIDAT'">Candidate</a>
         </div>
       </div>
       <nav class="mt-2" *ngIf="user.role === 'ROLE_ADMIN'">

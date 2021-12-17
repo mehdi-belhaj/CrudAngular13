@@ -11,17 +11,18 @@ import { CandidateModule } from '../../modules/candidate/candidate.module';
   imports: [
     CommonModule,
     NgChartsModule,
-    CandidateModule,
     RouterModule.forChild([
       {
         path: '',
         component: DashboardComponent,
       },
-      
-        
-      
-      
     ]),
+    CandidateModule
+
+
+
+
+
   ],
 
 })
