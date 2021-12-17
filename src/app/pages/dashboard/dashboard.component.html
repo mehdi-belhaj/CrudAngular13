@@ -1,0 +1,28 @@
+<div class="card card-custom gutter-b">
+    <div class="card-body" >
+      <div style="display: block">
+        <div class="container">
+        <div class="row">
+            <canvas baseChart 
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [plugins]="lineChartPlugins"
+            [type]="lineChartType"></canvas>
+        <canvas baseChart 
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [type]="barChartType">
+        </canvas>
+            <canvas baseChart 
+                    [data]="pieChartData"
+                    [type]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins">
+            </canvas>
+    </div>
+</div>
+     
+      </div>
+      </div>
+    </div>

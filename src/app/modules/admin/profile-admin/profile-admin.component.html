@@ -1,0 +1,220 @@
+<!-- Your content goes here  -->
+<div class="row clearfix">
+  <div class="col-lg-10 col-md-10 offset-1">
+    <div class="card">
+      <mat-tab-group #tabGroup>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon msr-2">face</mat-icon>
+            About Me
+          </ng-template>
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="project_widget">
+              <div class="row header p-2">
+                <div class="col col-6 b-r">
+                  <h2><strong class="p-2 m-2">Profile Details
+                  </strong></h2>
+                </div>
+              </div>
+              <div class="row body">
+                <div class="col-md-6">
+                  <div class="row p-2 adjustt">
+                    <div class="col-md-4">
+                      <p class="text-muted">Full Name</p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="text-muted adjustp"><strong>{{this.admin.firstname + ' '+ this.admin.lastname}}</strong></p>
+                    </div>
+                  </div>
+                  <br/>
+                  <div class="row p-2 adjustt">
+                    <div class="col-md-4 col-6 b-r">
+                      <p class="text-muted">Username</p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="text-muted adjustp"><strong>@{{this.admin.username}}</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="row p-2 adjustt">
+                    <div class="col-md-4 col-6 b-r">
+                      <p class="text-muted">Organization</p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="text-muted adjustp"><strong>CAP</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="row p-2 adjustt">
+                    <div class="col-md-4 col-6 b-r">
+                      <p class="text-muted">Mobile</p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="text-muted adjustp "><strong>{{this.admin.phone}}</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="row p-2 adjustt">
+                    <div class="col-md-4 col-6 b-r">
+                      <p class="text-muted">Email</p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="text-muted adjustp"><strong>{{this.admin.email}}</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="row p-2 adjustt">
+                    <div class="col-md-4 col-6 b-r">
+                      <p class="text-muted">Address</p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="text-muted adjustp"><strong>{{this.admin.address}}</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="row p-2 adjustt">
+                    <div class="col-md-4 col-6 b-r">
+                      <p class="text-muted">Date of birth</p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="text-muted adjustp"><strong>{{this.admin.dateOfBirth}}</strong></p>
+                    </div>
+                  </div>
+
+                  <div class="row p-2 adjustt">
+                    <div class="col-md-4 col-6 b-r">
+                      <p class="text-muted">Gender</p>
+                    </div>
+                    <div class="col-md-8">
+                      <p class="text-muted adjustp"><strong>{{this.admin.gender}}</strong></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2" >
+                  <div class="contact-grid">
+                    <div class="profile-header">
+                      <div class="user-name">{{this.admin.firstname + ' '+ this.admin.lastname}}</div>
+                      <!-- <div class="name-center" style="color: #333333">{{this.admin.role}}</div> -->
+                    </div>
+                    <img src="../../../../assets/img/avatar.png" class="user-img img-rounded" alt="">
+                    <p class="demo-google-material-icon">
+                      <i class="material-icons">account_balance</i><span class="icon-name">{{this.admin.address}}</span>
+
+
+                    </p>
+
+                    <div>
+                <span class="phone">
+                  <i class="material-icons">phone</i>{{this.admin.phone}}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon msr-2">settings</mat-icon>
+            Settings
+          </ng-template>
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="project_widget">
+              <div class="row header p-2">
+                <div class="col col-6 b-r">
+                  <h2><strong class="p-2 m-2">Security Setting
+                  </strong></h2>
+                </div>
+              </div>
+              <div class="body">
+
+                <form class="register-form m-4" [formGroup]="register" (ngSubmit)="onRegister(this.admin)">
+                  <div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>First name</mat-label>
+                          <input matInput formControlName="firstname" required [(ngModel)]="this.admin.firstname">
+                          <mat-icon matSuffix>face</mat-icon>
+                          <mat-error *ngIf="register.get('firstname').hasError('required')">
+                            First name is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Last name</mat-label>
+                          <input matInput formControlName="lastname" [(ngModel)]="this.admin.lastname">
+                          <mat-icon matSuffix>face</mat-icon>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Email</mat-label>
+                          <input  matInput formControlName="email" [(ngModel)]="this.admin.email" readonly>
+                          <mat-icon matSuffix>mail</mat-icon>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <div class="m-b-20">
+                          <mat-label class="msr-3 example-margin">Gender: </mat-label>
+                          <mat-radio-group class="example-margin m-2 p-2" formControlName="gender" aria-label="Select gender" required [(ngModel)]="this.admin.gender">
+                            <mat-radio-button class="example-margin m-2 p-2" [value]="gender" *ngFor="let gender of genders">{{gender}}</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+
+                      </div>
+                   
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Address</mat-label>
+                          <textarea matInput formControlName="address" [(ngModel)]="this.admin.address"></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Date of birth</mat-label>
+                          <input matInput type="date" formControlName="dateOfBirth" required [(ngModel)]="this.admin.dateOfBirth">
+                          <mat-icon matSuffix>date</mat-icon>
+                          <mat-error *ngIf="register.get('dateOfBirth').hasError('required')">
+                            Date of birth is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Mobile</mat-label>
+                          <input matInput formControlName="mobile" required [(ngModel)]="this.admin.phone">
+                          <mat-icon matSuffix>phone</mat-icon>
+                          <mat-error *ngIf="register.get('mobile').hasError('required')">
+                            Mobile is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <button class="btn-space" [disabled]="!register.valid" mat-raised-button
+                                color="primary">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
