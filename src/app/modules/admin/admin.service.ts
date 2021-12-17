@@ -45,4 +45,9 @@ export class AdminService {
   updateCandidate(id: number, candidate) {
     return this.http.put<any>(`${API_AUTH_URL}/candidate/${id}`, candidate);
   }
+  postFile(fileToUpload: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.http.post(`${API_AUTH_URL}/candidate/upload`, formData);
+  }
 }
