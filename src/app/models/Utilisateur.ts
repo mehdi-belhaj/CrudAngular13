@@ -32,8 +32,8 @@ export abstract class Utilisateur {
     this.picture = user.picture
       ? user.picture
       : user.gender === Gender.FEMALE
-      ? '../../assets/img/avatar2.png'
-      : '../../assets/img/avatar.png';
+        ? '../../assets/img/avatar2.png'
+        : '../../assets/img/avatar.png';
 
     this.dateOfBirth = user.dateOfBirth;
     this.password = user.password;
