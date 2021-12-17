@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Candidate } from '../../models/Candidate';
 import { Role } from '../../models/Utilisateur';
 import { CandidateService } from './candidate.service';
@@ -16,11 +17,11 @@ export class CandidateComponent implements OnInit {
   submitted = false;
   errorMessage = '';
 
-  constructor(private candidateService : CandidateService,private formBuilder: FormBuilder,
+  constructor(private candidateService: CandidateService, private formBuilder: FormBuilder,
     private router: Router) { }
 
   candidat: any;
-  id : number;
+  id: number;
 
   ngOnInit(): void {
     this.getCandidat();
@@ -29,20 +30,15 @@ export class CandidateComponent implements OnInit {
 
     this.myform = this.formBuilder.group(
       {
-        firstname: ['', Validators.required],
+        firstname: ['', [Validators.required, Validators.minLength(3)]],
         poste: ['FULLSTACKDEVELOPER', Validators.required],
         activity: ['FINANCIALSERVICES', Validators.required],
         gender: ['MALE', Validators.required],
 
-        lastname: ['', Validators.required],
-       
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(40),
-        ],
-        ]
+        lastname: ['', [Validators.required, Validators.minLength(3)]],
+        phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+        address: ['', [Validators.required]],
+        dateOfBirth: ['', Validators.required]
 
       },
 
@@ -72,11 +68,11 @@ export class CandidateComponent implements OnInit {
   public get Lastname(): FormControl {
     return this.myform.get('lastname') as FormControl;
   }
-  public get Password(): FormControl {
-    return this.myform.get('password') as FormControl;
-  }
   public get Phone(): FormControl {
     return this.myform.get('phone') as FormControl;
+  }
+  public get DateOfBirth(): FormControl {
+    return this.myform.get('dateOfBirth') as FormControl;
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -85,41 +81,53 @@ export class CandidateComponent implements OnInit {
 
 
 
-  
+
   getCandidat(): void {
     this.candidateService.getCandidateById()
       .subscribe(
-        data => { this.candidat = data
-          this.id = data.id
-         
-          console.log(data);
+        data => {
+          this.candidat = data;
+          this.myform.setValue({
+            firstname: this.candidat.firstname,
+            poste: this.candidat.poste,
+            activity: this.candidat.activityArea,
+            gender: this.candidat.gender,
+
+            lastname: this.candidat.lastname,
+            phone: this.candidat.phone,
+            address: this.candidat.address,
+            dateOfBirth: this.candidat.dateOfBirth
+          })
         },
         error => {
-          console.log(error);
+          Swal.fire({
+            text: 'please fill in the form correctly',
+            icon: "error"
+          })
         });
   }
 
 
-  submit(){
+  submit() {
 
 
-    let candidate: Candidate = {
+    let candidate: any = {
       firstname: this.Firstname?.value.trim().toLowerCase(),
       lastname: this.Lastname?.value.trim().toLowerCase(),
-      email: this.Email?.value.trim().toLowerCase(),
       address: this.Address?.value.trim().toLowerCase(),
       phone: this.Phone?.value.trim().toLowerCase(),
-      poste: this.Poste?.value.trim(),
-      activityArea: this.Activity?.value.trim(),
       gender: this.Gender?.value.trim(),
-      password: this.Password?.value,
+      dateOfBirth: this.DateOfBirth?.value,
       role: Role.ROLE_CANDIDAT,
     };
 
-  
+
     this.candidateService.update(this.myform.value).subscribe(res => {
-         console.log('Candidate updated successfully!');
-         this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/dashboard');
+      Swal.fire({
+        text: 'Your personal information updated succeftully',
+        icon: "success"
+      })
     })
   }
 
