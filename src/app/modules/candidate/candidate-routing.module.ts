@@ -7,7 +7,10 @@ const routes: Routes = [
     path: '',
     component: CandidateComponent,
     // canActivate: [AppAuthGuard],
-    children: [{ path: '', redirectTo: '/dashboard', pathMatch: 'full' }],
+    children: [{path:"", redirectTo:'/dashboard', pathMatch:'full'},
+    // {path:"profile-candidat",component:CandidateComponent,outlet:"candidat"}
+    ],
+  
   },
 ];
 

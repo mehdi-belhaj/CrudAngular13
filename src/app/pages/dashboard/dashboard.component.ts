@@ -3,16 +3,21 @@ import { ChartConfiguration, ChartEvent, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
+import { CandidateService } from '../../modules/candidate/candidate.service';
+import { TokenStorageService } from '../../modules/authentication/services/token-storage-service.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor() { }
-
+  constructor(private tokenService: TokenStorageService) { }
+public user;
   ngOnInit(): void {
+    this.user = this.tokenService.getUser();
     this.pieChartOptions.plugins.legend.position = this.pieChartOptions.plugins.legend.position = 'left';
+
+   
   }
 
   public barChartOptions: ChartConfiguration['options'] = {
@@ -123,5 +128,10 @@ export class DashboardComponent implements OnInit {
   };
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [DataLabelsPlugin];
+
+
+
+
+
 
 }

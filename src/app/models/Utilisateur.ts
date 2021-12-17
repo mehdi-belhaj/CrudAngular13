@@ -12,7 +12,7 @@ export abstract class Utilisateur {
   id?: string;
   firstname: string;
   lastname: string;
-  username: string;
+  username?: string;
   email: string;
   picture?: string;
   dateOfBirth?: Date;

@@ -1,1 +1,219 @@
-<p>candidate works!</p>
+
+<div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                                <div class="profile-work">
+                                    <p>ACTIVITY</p>
+                                    <a >{{candidat.activityArea}}</a><br/>
+                                    <p>POSTE</p>
+                                    <a >{{candidat.poste}}</a><br/>
+                                
+                          
+                        
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h2>
+                                     {{candidat.username | uppercase}}
+                                    </h2>
+    
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Personal information</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Update Profile</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="tab-content profile-tab" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>First name</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{candidat.firstname}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Last name</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{candidat.lastname}}</p>
+                                                </div>
+                                            </div>
+    
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{candidat.email}}</p>
+                                                </div>
+                                            </div>
+    
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Gender</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{candidat.gender}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Date Of Birth</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{candidat.dateOfBirth}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Address</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{candidat.address}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Phone</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{candidat.phone}}</p>
+                                                </div>
+                                            </div>
+                                </div>
+                                <form class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"  [formGroup]="myform" (ngSubmit)="submit()">
+    
+                                            <div class="form-group row" >
+                                                <label class="col-4 col-form-label">First name</label> 
+                                                <div class="col-8">
+                                                  <input class="form-control" formControlName="firstname" 
+                                                  [ngClass]="{'is-invalid': f.firstname.errors && f.firstname.dirty}"
+                                                  value="{{candidat.firstname}}"  type="text" >
+    
+    
+                                                  <div *ngIf="f.firstname.errors && f.firstname.dirty " class="invalid-feedback">
+                                                    <div *ngIf="f.firstname.errors.required" class="error">
+                                                        FirstName is required
+                                                    </div>
+                                                    <div *ngIf="f.firstname.errors?.minlength">
+                                                        First name must be at least 3 characters long.
+                                                    </div>
+                                                </div>
+                                      
+                                                </div>
+                                              </div>
+    
+                                              <div class="form-group row">
+                                                <label  class="col-4 col-form-label">Last name</label> 
+                                                <div class="col-8">
+                                                  <input  formControlName="lastname" class="form-control" 
+                                                   value="{{candidat.lastname}}" type="text"  [ngClass]="{'is-invalid': f.lastname.errors && f.lastname.dirty}" >
+                                                   <div *ngIf="f.lastname.errors && f.lastname.dirty " class="invalid-feedback">
+                                                    <div *ngIf="f.lastname.errors.required" class="error">
+                                                        Last name is required
+                                                    </div>
+                                                    <div *ngIf="f.lastname.errors?.minlength">
+                                                        Last name must be at least 3 characters long.
+                                                    </div>
+                                                </div>
+                                                </div>
+                                              </div>
+    
+                                              
+    
+    
+                                              <div class="form-group row" >
+    
+    
+                                                    <label class="col-4 col-form-label">Gender</label>
+                                                    <div class="col-8">
+                                                       
+                                                    <select class="form-control" formControlName="gender" [ngClass]="{'is-invalid': f.gender.errors && f.gender.dirty}" >
+                                                      <option value="MALE" selected>MALE</option>
+                                                      <option value="FEMALE">FEMALE</option>
+                                                  </select>
+                                                  <div *ngIf="f.gender.errors && f.gender.dirty " class="invalid-feedback">
+                                                    <div *ngIf="f.gender.errors.required" class="error">
+                                                        Gender is required
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                
+                                              </div>
+                                              <div class="form-group row">
+                                                <label  class="col-4 col-form-label">Date Of Birth</label> 
+                                                <div class="col-8">
+                                                  <input formControlName="dateOfBirth" type="date" value="{{candidat.dateOfBirth}}" class="form-control" [ngClass]="{'is-invalid': f.dateOfBirth.errors && f.dateOfBirth.dirty}">
+                                                  <div *ngIf="f.dateOfBirth.errors && f.dateOfBirth.dirty " class="invalid-feedback">
+                                                    <div *ngIf="f.dateOfBirth.errors.required" class="error">
+                                                        Date of Birth is required
+                                                    </div>
+                                                   
+                                                </div>
+                                              
+                                                </div>
+                                              </div>
+    
+    
+                                              <div class="form-group row">
+                                                <label  class="col-4 col-form-label">Phone</label> 
+                                                <div class="col-8">
+                                                  <input formControlName="phone" value="{{candidat.phone}}" class="form-control" [ngClass]="{'is-invalid': f.phone.errors && f.phone.dirty}" type="text" >
+                                                  <div *ngIf="f.phone.errors && f.phone.dirty " class="invalid-feedback">
+                                                    <div *ngIf="f.phone.errors.required" class="error">
+                                                        Phone is required
+                                                    </div>
+                                                    <div *ngIf="f.phone.errors?.minlength || f.phone.errors?.maxlength">
+                                                        Phone length is not valid
+                                                    </div>
+                                                   
+                                                </div>
+                                              
+                                                </div>
+                                              </div>
+                                             
+                                              <div class="form-group row">
+                                                <label  class="col-4 col-form-label">Address</label> 
+                                                <div class="col-8">
+                                                  <input formControlName="address" value="{{candidat.address}}" class="form-control" [ngClass]="{'is-invalid': f.address.errors && f.address.dirty}" type="text" >
+                                                  <div *ngIf="f.address.errors && f.address.dirty " class="invalid-feedback">
+                                                    <div *ngIf="f.address.errors.required" class="error">
+                                                        Address is required
+                                                    </div>
+                                                   
+                                                </div>
+                                              
+                                                </div>
+                                              </div>
+    
+                                         
+    
+                                              <div class="col-md-6">
+                                                <button class="btn btn-primary btn-sm" [disabled]="!myform.valid">Update </button>
+                                            </div>                                 
+                                        </form>
+                            </div>
+                        </div>
+
+                    </div>
+                   
+                </div>
+                
+            </form>           
+        </div>
