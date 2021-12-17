@@ -1,1 +1,15 @@
-<p>import-candidate works!</p>
+<div class="container">
+    <div class="card">
+      <div class="col-md-9" style="margin-left: 120px">
+          <div class="form-group files">
+            <br/>
+            <label class="text-center" style="margin-left: 300px;color:cornflowerblue;" >Import your candidates</label>
+              <br/>
+            <input type="file" class="form-control-file" (change)="handleFileInput($event)" id="file">
+            <button type="button" class="btn btn-primary" (click)="upload()" [disabled]="disabled" style="display: block;margin: auto;">Upload </button>
+          </div>
+      </div>
+   
+    </div>
+   </div>
+   

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './_layout/layout.component';
 import { AdminGuard } from '../core/guards/admin.guard';
 import { CandidateGuard } from '../core/guards/candidate.guard';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+      {
+        path: 'adminProfile',
+        loadChildren: () =>
+          import('../modules/admin/profile-admin/profile-admin.module').then((m) => m.ProfileAdminModule),
       },
       {
         path: 'admin',
@@ -34,12 +40,19 @@ const routes: Routes = [
         redirectTo: '/dashboard',
         pathMatch: 'full',
       },
-    ],
+    ]
   },
+  {
+    path: 'notFound',
+    component: ErrorComponent
+
+  },
+
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class PagesRoutingModule {}
+export class PagesRoutingModule { }

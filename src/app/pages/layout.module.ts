@@ -15,4 +15,4 @@ import { CandidateRoutingModule } from '../modules/candidate/candidate-routing.m
     CandidateRoutingModule,
   ],
 })
-export class LayoutModule {}
+export class LayoutModule { }

@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
 import { Role, Utilisateur } from '../../../models/Utilisateur';
 import { AuthHttpService } from '../services/auth-http.service';
 import Validation from './Utils/validation';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import Swal from 'sweetalert2';
+import { Admin } from "../../../models/Admin";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: 'app-registration',
@@ -22,18 +26,39 @@ export class RegistrationComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  hide: boolean = true;
+  chide: boolean = true;
+
+  private admins: Admin[];
+  usernameExist: boolean = false;
+  emailExist: boolean = false;
+  messageValidate = {
+    username: {
+      required: 'Must Enter username',
+      matchUsername: '',
+    },
+    email: {
+      required: 'Must Enter username',
+      matchEmail: '',
+    }
+  }
 
   constructor(
     private formBuilder: FormBuilder,
     private authhttp: AuthHttpService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
-        firstname: ['', Validators.required],
-        lastname: ['', Validators.required],
+        firstname: ['', [
+          Validators.required,
+          Validators.minLength(4)]],
+        lastname: ['', [
+          Validators.required,
+          Validators.minLength(4)]],
         username: [
           '',
           [
@@ -43,15 +68,15 @@ export class RegistrationComponent implements OnInit {
           ],
         ],
         email: ['', [Validators.required, Validators.email]],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(40),
+        password:
+          ['',
+            [
+              Validators.required,
+              Validators.minLength(6)]
           ],
-        ],
-        confirmPassword: ['', Validators.required],
+
+        confirmPassword: ['', [
+          Validators.required]],
       },
       {
         validators: [Validation.match('password', 'confirmPassword')],
@@ -75,7 +100,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   public get confirmPassword(): FormControl {
-    return this.form.get('cPassconfirmPasswordword') as FormControl;
+    return this.form.get('confirmPassword') as FormControl;
   }
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
@@ -102,11 +127,58 @@ export class RegistrationComponent implements OnInit {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.router.navigate(['/auth']);
-      },
+        Swal.fire({
+          title: 'Admin Created successfully',
+          icon: 'success'
+        })
+      }
+      ,
       (err) => {
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
       }
+
     );
+
+
+
   }
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: ['snackbar-success'],
+    });
+  }
+
+  isUserNameExist() {
+    const name = this.form.value.username;
+    if (name != null && name != '') {
+      this.authhttp.UsernameExist(name).subscribe(x => {
+        this.messageValidate.username.matchUsername = 'Username Already Exists.';
+        this.usernameExist = true;
+      }, ex => {
+        this.usernameExist = false;
+      });
+      return true;
+    }
+    return false;
+  }
+
+  isEmailExist() {
+    const email = this.form.value.email;
+    if (email != null && email != '') {
+      this.authhttp.EmailExist(email).subscribe(x => {
+        this.messageValidate.email.matchEmail = 'Email Already Exists.';
+        this.emailExist = true;
+      }, ex => {
+        this.emailExist = false;
+      });
+      return true;
+    }
+    return false;
+  }
+
+
 }

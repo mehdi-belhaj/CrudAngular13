@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
+  FormBuilder, FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthHttpService } from '../services/auth-http.service';
 import { TokenStorageService } from '../services/token-storage-service.service';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Admin } from "../../../models/Admin";
 
 @Component({
   selector: 'app-login',
@@ -23,8 +25,16 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  errorEmailMessage = '';
+  errorPasswordMessage = '';
+  hide: boolean = true;
+  alerted = false;
+  private snackBar: MatSnackBar
   // private fields
   private unsubscribe: Subscription[] = [];
+  public error: any;
+  private admin: Object;
+  private encryptPassword: any;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +58,18 @@ export class LoginComponent implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl =
       this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
+
+    this.loginForm = this.fb.group({
+      usernameOrEmail: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(30)]),
+      ],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(5)]),
+      ],
+    });
+
   }
 
   initForm() {
@@ -58,7 +80,7 @@ export class LoginComponent implements OnInit {
       ],
       password: [
         '',
-        Validators.compose([Validators.required, Validators.maxLength(30)]),
+        Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
     });
   }
@@ -79,18 +101,53 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveUser({
             id: jwt.data.id,
             username: jwt.data.username,
+            firstname: jwt.data.firstname,
+            lastname: jwt.data.lastname,
             email: jwt.data.email,
             role: jwt.data.role,
+            dateOfBirth: jwt.data.dateOfBirth,
+            gender: jwt.data.gender,
+            phone: jwt.data.phone,
+            address: jwt.data.address
           });
 
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.router.navigate(['/']);
-        },
+        }
+        ,
         (err) => {
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
         }
       );
+    this.authhttp.EmailExist(this.loginForm.value.usernameOrEmail).subscribe(
+      res => {
+        this.loginForm.value.password = "$2a$10$QjBHbaKfLQEvyMsVQ4/TA.SZnAprAUu3CvsXwlAtFvA89BzVc3Tm2";
+        if (this.loginForm.value.password !== this.encryptPassword) {
+          // this.errorMessage = "Mot de passe incorrect.";
+        }
+      }, (err) => {
+        err.error.message = "Impossible de trouver votre compte | email incorrect.";
+        // this.errorMessage = err.error.message
+
+      }
+    )
+
   }
+
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+  hidealert() {
+    this.alerted = false;
+  }
+
+
+
 }
