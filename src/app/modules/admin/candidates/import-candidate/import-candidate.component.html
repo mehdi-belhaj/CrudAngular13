@@ -1,0 +1,15 @@
+<div class="container card " >
+  <div class="card-header"> </div>
+  <div class=" row card-body">
+      <div class="col-md-9 col-md-12" style="display: block; text-align: center">
+          <div class="form-group files" >
+            <br/>
+            <label class="text-center" style="text-align: center; display: block" >Import your candidates</label>
+              <br/>
+            <input  type="file" class="form-control-file filee" (change)="handleFileInput($event)" id="file">
+            <button type="button" class="btn btn-primary" (click)="upload()" [disabled]="disabled" style="display: block;margin: auto;">Upload </button>
+          </div>
+      </div>
+
+    </div>
+   </div>

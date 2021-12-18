@@ -1,0 +1,123 @@
+<div class="auth-container">
+  <div class="row auth-main">
+    <div class="col-sm-6 px-0 d-none d-sm-block">
+      <!--      <div class="left-img" style="background-image: url(assets/images/pages/bg-01.png);">-->
+      <div class="left-img container-class">
+
+      </div>
+    </div>
+    <div class="col-sm-6 auth-form-section">
+      <div class="form-section">
+        <div class="auth-wrapper">
+          <form class="validate-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+            <div class="alert alert-danger" *ngIf="errorMessage">
+              Email Or Password Incorrect !
+            </div>
+            <div class="img-circle img-size-32 card-img-overlay img-ss " style="margin-bottom: 30px">
+              <img src="../../../../assets/img/cap1.png"/>
+              <h1 class="capgemini">Capgemini</h1>
+            </div>
+         
+            <h2 class="login-title">#Get the future you want#</h2>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="usernameOrEmail" />
+                  <mat-icon matSuffix>face</mat-icon>
+                  <mat-error>
+                    <div *ngIf="loginForm.get('usernameOrEmail').hasError('required')">
+                      Username or Email is required
+                    </div>
+
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+                  [ngClass]="{'is-invalid': (loginForm.get('password').touched ||
+                                              loginForm.get('password').dirty &&
+                                               loginForm.get('password').valid)}">
+                  <a class="show-pwd-icon" href="#" onClick="return false;" matSuffix (click)="hide = !hide"
+                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </a>
+                  <mat-error>
+                    <div *ngIf="loginForm.get('password').hasError('required')">
+                      Password is required
+                    </div>
+                    <div *ngIf="loginForm.get('password').errors?.minlength">
+                       Password must be at least 6 characters long.
+                    </div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-5">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" value=""> Remember me
+                  <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+              <a class="txt1" routerLink="/authentication/forgot-password">Forgot Password?</a>
+            </div>
+
+            <div class="row" style="margin-left: 60px">
+              <div class="container-auth-form-btn col-md-6  btn-link float-left col-lg-6">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!loginForm.valid"
+                >
+                  Login
+                </button>
+
+              </div>
+              <div class="container-auth-form-btn btn-link float-right col-lg-6">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  routerLink="/auth/register"
+                >
+                  Sign up
+                </button>
+              </div>
+            </div>
+            <div id="container" class="alert alert-warning alert-dismissible" role="alert" *ngIf="alerted">
+              votre compte a été désactivé ou supprimer, merci de contacter votre administrateur.
+              <button id="x" type="button" class="close btn-danger" data-dismiss="alert" aria-label="Close"  (click)="hidealert()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!-- <div *ngIf="errorEmailMessage" class="alert alert-danger mt-3 mb-0">{{errorEmailMessage}}</div> -->
+            <!-- <div *ngIf="errorMessage!='';" class="alert alert-danger mt-3 mb-0">Email Or Password Incorrect !</div> -->
+           
+          </form>
+          <h6 class="social-login-title">OR</h6>
+          <ul class="list-unstyled social-icon mb-0 mt-3">
+            <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+              <i class="fab fa-google"></i>
+            </a></li>
+            <li class="list-inline-item"><a href="javascript:void(0)" class="rounded flex-c-m">
+              <i class="fab fa-facebook-f"></i>
+            </a></li>
+            <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+              <i class="fab fa-twitter"></i>
+            </a></li>
+            <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+              <i class="fab fa-linkedin-in"></i>
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
