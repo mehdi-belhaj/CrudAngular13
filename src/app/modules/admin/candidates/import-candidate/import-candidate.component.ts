@@ -39,7 +39,7 @@ export class ImportCandidateComponent implements OnInit {
           })
         },
         err => Swal.fire({
-          title: 'File not uploaded',
+          title: 'Email or Username of candidate already exist',
           icon: 'error'
         })
       );
