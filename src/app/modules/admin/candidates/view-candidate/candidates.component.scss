@@ -1,66 +1,69 @@
 table {
-  width: 100% !important;
+    width: 100% !important;
 }
 .mat-elevation-z8 {
-  overflow-x: auto !important;
+    overflow-x: auto !important;
 }
 
 mat-form-field {
-  width: 20%;
+    width: 20%;
 }
 
 .svg-icon {
-  height: 1.15rem !important;
-  width: 1.15rem !important;
+    height: 1.15rem !important;
+    width: 1.15rem !important;
 }
 .svg-icon.svg-icon-primary {
-  transition: fill 0.3s ease !important;
-  fill: #009ef7 !important;
+    transition: fill 0.3s ease !important;
+    fill: #009ef7 !important;
 }
 .svg-icon.svg-icon-primary svg:hover {
-  transition: fill 0.3s ease !important;
+    transition: fill 0.3s ease !important;
 }
 .svg-icon.svg-icon-danger {
-  transition: fill 0.3s ease;
-  fill: #f1416c;
+    transition: fill 0.3s ease;
+    fill: #f1416c;
 }
 .svg-icon.svg-icon-danger svg:hover {
-  transition: fill 0.3s ease;
+    transition: fill 0.3s ease;
 }
 .btn .svg-icon {
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 0.5rem;
+    flex-shrink: 0;
+    line-height: 0;
+    margin-right: 0.5rem;
 }
 .btn.btn-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  height: calc(1.5em + (1.5rem + 2px));
-  width: calc(1.5em + (1.5rem + 2px));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: calc(1.5em + (1.5rem + 2px));
+    width: calc(1.5em + (1.5rem + 2px));
 }
 
 .btn.btn-color-primary {
-  color: #009ef7;
+    color: #009ef7;
 }
 .btn.btn-color-primary i {
-  color: #009ef7;
+    color: #009ef7;
 }
 .btn.btn-color-primary .svg-icon svg [fill]:not(.permanent):not(g) {
-  transition: fill 0.3s ease;
-  fill: #009ef7;
+    transition: fill 0.3s ease;
+    fill: #009ef7;
 }
 .btn.btn-color-primary .svg-icon svg:hover [fill]:not(.permanent):not(g) {
-  transition: fill 0.3s ease;
+    transition: fill 0.3s ease;
 }
 .btn.btn-color-primary.dropdown-toggle:after {
-  color: #009ef7;
+    color: #009ef7;
 }
-.tableheader{
-  font-family: Lato-Bold;
-  font-size: 18px;
-  color: #fff;
-  line-height: 1.4;
-  background-color: #6c7ae0;
+.tableheader {
+    font-family: Lato-Bold;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #6c7ae0;
 }
+::ng-deep .mat-sort-header-arrow {
+    color:black; /*change color of arrow*/
+  }

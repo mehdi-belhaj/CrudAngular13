@@ -20,6 +20,7 @@ export class ProfileAdminComponent implements OnInit {
   public admin: any;
   genders: string[] = ["MALE", "FEMALE"];
   genderForm: FormGroup;
+  public image;
   constructor(private fb: FormBuilder,
     private tokenStorageService: TokenStorageService,
     private authService: AuthHttpService,
@@ -66,7 +67,7 @@ export class ProfileAdminComponent implements OnInit {
     this.initForm();
     this.tokenStorageService.getToken();
     this.admin = this.tokenStorageService.getUser();
-
+    this.image = this.admin?.gender == 'MALE' ? '../../../../assets/img/avatar.png' : '../../../../assets/img/avatar2.png'
   }
 
 

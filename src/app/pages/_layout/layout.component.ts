@@ -12,6 +12,7 @@ import { TokenStorageService } from '../../modules/authentication/services/token
 export class LayoutComponent implements OnInit {
   public user;
   title;
+  public image;
   constructor(
     private tokenService: TokenStorageService,
     private httpservice: AuthHttpService,
@@ -44,6 +45,7 @@ export class LayoutComponent implements OnInit {
         break;
     }
     this.user = this.tokenService.getUser();
+    this.image = this.user?.gender == 'MALE' ? '../../../../assets/img/avatar.png' : '../../../../assets/img/avatar2.png'
   }
   logout() {
     this.tokenService.signOut();
@@ -55,6 +57,7 @@ export class LayoutComponent implements OnInit {
       .subscribe(() => {
         this.title = this.router.url.split('/').pop();
         this.user = this.tokenService.getUser();
+        this.image = this.user?.gender == 'MALE' ? '../../../../assets/img/avatar.png' : '../../../../assets/img/avatar2.png'
         switch (this.title) {
           case 'newCandidate':
             this.title = 'Add New Candidate';

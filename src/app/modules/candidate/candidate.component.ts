@@ -16,7 +16,7 @@ export class CandidateComponent implements OnInit {
   myform!: FormGroup;
   submitted = false;
   errorMessage = '';
-
+  public image;
   constructor(private candidateService: CandidateService, private formBuilder: FormBuilder,
     private router: Router) { }
 
@@ -97,7 +97,8 @@ export class CandidateComponent implements OnInit {
             phone: this.candidat.phone,
             address: this.candidat.address,
             dateOfBirth: this.candidat.dateOfBirth
-          })
+          });
+          this.image = this.candidat?.gender == 'MALE' ? '../../../../assets/img/avatar.png' : '../../../../assets/img/avatar2.png'
         },
         error => {
           Swal.fire({
