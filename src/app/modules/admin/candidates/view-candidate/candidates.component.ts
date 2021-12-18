@@ -27,7 +27,6 @@ export class CandidatesComponent implements OnInit,
     this.adminService.getCandidates().subscribe((data) => {
      
       data.data.sort((a, b) => parseInt(b.id) - parseInt(a.id));
-      console.log(data.data);
       this.setTableDataSource(data.data);
     });
   }
