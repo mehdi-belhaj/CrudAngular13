@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { AdminService } from '../../admin.service';
@@ -8,6 +9,7 @@ import { AdminService } from '../../admin.service';
 export class CandidatesComponent implements OnInit,
   AfterViewInit {
   @ViewChild(MatPaginator, { static: false }) matPaginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[] = [
     'firstname',
     'lastname',
@@ -23,16 +25,24 @@ export class CandidatesComponent implements OnInit,
   constructor(private adminService: AdminService) { }
   ngOnInit(): void {
     this.adminService.getCandidates().subscribe((data) => {
+     
+      data.data.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+      console.log(data.data);
       this.setTableDataSource(data.data);
     });
   }
   ngAfterViewInit(): void {
     this.table.paginator = this.matPaginator;
+    const sortState: Sort = { active: 'name', direction: 'desc' };
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
   setTableDataSource(data: any) {
     this.table = new MatTableDataSource<any>(data);
     this.listCandidates = this.table.data;
     this.table.paginator = this.matPaginator;
+    this.table.sort = this.sort;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
