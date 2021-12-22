@@ -45,6 +45,8 @@ export class LayoutComponent implements OnInit {
         break;
     }
     this.user = this.tokenService.getUser();
+    if(this.user?.gender=="" || this.user?.gender==undefined)
+    this.user.gender='MALE';
     this.image = this.user?.gender == 'MALE' ? '../../../../assets/img/avatar.png' : '../../../../assets/img/avatar2.png'
   }
   logout() {

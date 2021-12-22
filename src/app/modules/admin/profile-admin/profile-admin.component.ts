@@ -67,6 +67,8 @@ export class ProfileAdminComponent implements OnInit {
     this.initForm();
     this.tokenStorageService.getToken();
     this.admin = this.tokenStorageService.getUser();
+    if(this.admin?.gender=="" || this.admin?.gender==undefined)
+    this.admin.gender='MALE';
     this.image = this.admin?.gender == 'MALE' ? '../../../../assets/img/avatar.png' : '../../../../assets/img/avatar2.png'
   }
 
